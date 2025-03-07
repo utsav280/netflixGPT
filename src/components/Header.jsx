@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa"; // Import arrow icons
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate, useLocation } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { LOGO, PROFILE } from "../utils/constants";
+
 const Header = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
+  // console.log(auth);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  const navigate = useNavigate();
 
   const handleSignOut = () => {
     // Sign out logic
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-
-        navigate("/");
       })
       .catch((error) => {
         // An error happened.
@@ -25,13 +32,25 @@ const Header = () => {
       });
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in/Signed Up
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        navigate("/browse");
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black to-transparent z-10 flex justify-between">
-      <img
-        className="w-36"
-        src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="logo"
-      />
+    <div className="absolute w-screen z-20 px-8 py-2 bg-gradient-to-b from-black to-transparent  flex justify-between">
+      <img className="w-36" src={LOGO} alt="logo" />
       {location.pathname === "/browse" && (
         <div className="relative flex items-center space-x-4">
           <div
@@ -39,14 +58,14 @@ const Header = () => {
             onClick={toggleDropdown}
           >
             <img
-              className="w-10 h-10 "
-              src="https://occ-0-6246-2186.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABTZ2zlLdBVC05fsd2YQAR43J6vB1NAUBOOrxt7oaFATxMhtdzlNZ846H3D8TZzooe2-FT853YVYs8p001KVFYopWi4D4NXM.png?r=229"
+              className="w-10 h-10 z-20 rounded-md "
+              src={PROFILE}
               alt="profilePic"
             />
             {isDropdownOpen ? (
-              <FaCaretUp className="ml-2" />
+              <FaCaretUp className="text-white ml-2" />
             ) : (
-              <FaCaretDown className="ml-2" />
+              <FaCaretDown className="text-white ml-2 " />
             )}
           </div>
           <div
@@ -56,7 +75,7 @@ const Header = () => {
           >
             <button
               onClick={handleSignOut}
-              className="block w-full text-left px-4 py-2 text-white hover:underline"
+              className="block w-full text-left px-8 py-2 text-white hover:underline"
             >
               Sign Out
             </button>
@@ -68,3 +87,107 @@ const Header = () => {
 };
 
 export default Header;
+// import React, { useState, useEffect } from "react";
+// import { FaCaretDown, FaCaretUp } from "react-icons/fa"; // Import arrow icons
+// import { signOut } from "firebase/auth";
+// import { auth } from "../utils/firebase";
+// import { useNavigate, useLocation } from "react-router-dom";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { useDispatch } from "react-redux";
+// import { addUser, removeUser } from "../utils/userSlice";
+// import { LOGO, PROFILE } from "../utils/constants";
+
+// const Header = () => {
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+//   const location = useLocation();
+
+//   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+//   const toggleDropdown = () => {
+//     setIsDropdownOpen((prev) => !prev);
+//   };
+
+//   const handleSignOut = () => {
+//     signOut(auth)
+//       .then(() => {
+//         // Sign-out successful, redirect to home page.
+//         navigate("/");
+//       })
+//       .catch((error) => {
+//         navigate("/error"); // Handle errors
+//       });
+//   };
+
+//   useEffect(() => {
+//     const unsubscribe = onAuthStateChanged(auth, (user) => {
+//       if (user) {
+//         const { uid, email, displayName } = user;
+//         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+//         navigate("/browse");
+//       } else {
+//         dispatch(removeUser());
+//         navigate("/");
+//       }
+//     });
+//     return () => unsubscribe();
+//   }, [dispatch, navigate]);
+
+//   return (
+//     <div className="relative w-screen z-10 px-8 py-2 bg-gradient-to-b from-black to-transparent flex justify-between">
+//       <img className="w-36" src={LOGO} alt="logo" />
+//       {location.pathname === "/browse" && (
+//         <div
+//           className="relative flex items-center space-x-4 z-50"
+//           style={{
+//             position: "relative",
+//             zIndex: 10000,
+//           }}
+//         >
+//           <div
+//             className="flex items-center cursor-pointer relative"
+//             onClick={toggleDropdown}
+//           >
+//             <img
+//               className="w-10 h-10 rounded-full"
+//               src={PROFILE}
+//               alt="profilePic"
+//             />
+//             <div className="ml-2 text-white">
+//               {isDropdownOpen ? (
+//                 <FaCaretUp size={24} />
+//               ) : (
+//                 <FaCaretDown size={24} />
+//               )}
+//             </div>
+//           </div>
+
+//           {/* Dropdown Menu */}
+//           {isDropdownOpen && (
+//             <div
+//               className="absolute right-0 mt-2 w-48 bg-black bg-opacity-75 rounded-md shadow-lg py-2 z-50"
+//               style={{
+//                 top: "100%", // This ensures the dropdown appears below the profile picture
+//                 right: "0", // Aligns the dropdown to the right edge of the profile picture
+//                 pointerEvents: "auto", // Ensure the dropdown can be clicked
+//               }}
+//             >
+//               {/* Sign-Out Button */}
+//               <button
+//                 onClick={handleSignOut}
+//                 className="w-full text-left px-4 py-2 text-white hover:bg-gray-700 focus:outline-none"
+//                 style={{
+//                   zIndex: 10001, // Ensure the button is on top of the dropdown
+//                 }}
+//               >
+//                 Sign Out
+//               </button>
+//             </div>
+//           )}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Header;
