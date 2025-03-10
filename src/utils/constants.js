@@ -16,17 +16,15 @@ export const API_OPTIONS = {
   },
 };
 
-export const URL =
-  "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+export const URL = "https://api.themoviedb.org/3/movie/now_playing?page=1";
 
-export const URL_POPULAR =
-  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+export const URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?page=1";
 
 export const URL_TOP_RATED =
-  "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+  "https://api.themoviedb.org/3/movie/top_rated?page=1";
 
 export const URL_UPCOMING =
-  "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
+  "https://api.themoviedb.org/3/movie/upcoming?page=1";
 
 //
 export const IMG_CDN = "https://image.tmdb.org/t/p/w500";
@@ -35,3 +33,8 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "en", name: "English" },
   { identifier: "hindi", name: "Hindi" },
 ];
+
+// export const OPENAI_KEY =
+//   "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";
+
+export const GEMINI_AI_KEY = "AIzaSyDne7LVJnf7CRkVB2OQqwPgpV4jgi2dxLs";

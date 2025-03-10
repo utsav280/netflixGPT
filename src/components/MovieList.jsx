@@ -1,32 +1,10 @@
-// import React from "react";
-// import MovieCard from "./MovieCard";
-
-// const MovieList = ({ title, movies }) => {
-//   if (!movies) {
-//     return <div>Loading...</div>; // Fallback UI while data is being loaded
-//   }
-//   return (
-//     <div>
-//       <h1>{title}</h1>
-//       <div className="flex">
-//         <div className="flex overflow-x-scroll">
-//           {movies.map((movie) => (
-//             <MovieCard key={movie.id} posterPath={movie.poster_path} />
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MovieList;
-
 import React from "react";
 import MovieCard from "./MovieCard";
+import Shimmer from "./Shimmer";
 
 const MovieList = ({ title, movies }) => {
   if (!movies || movies.length === 0) {
-    return <div>Loading...</div>; // Fallback UI while data is being loaded
+    return <Shimmer title={title} />;
   }
 
   return (

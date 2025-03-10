@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, PROFILE } from "../utils/constants";
-import { toggleGptSearch } from "../utils/gptSlice";
+import { toggleGptSearch, removeGptMovieResults } from "../utils/gptSlice";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 import { changeLanguage } from "../utils/configSlice";
 
@@ -25,6 +25,7 @@ const Header = () => {
 
   const handleGptSearchClick = () => {
     console.log("GPT Search button clicked");
+    dispatch(removeGptMovieResults());
     dispatch(toggleGptSearch());
   };
 
@@ -84,7 +85,7 @@ const Header = () => {
           )}
 
           <button
-            className="flex items-center py-2 px-4 mx-4 my-2 bg-transparent text-white text-lg font-normal rounded-md hover:underline transition duration-300"
+            className="flex items-center py-2 px-4 mx-4 my-2 bg-transparent border border-white text-white text-lg font-normal rounded-md hover:underline transition duration-300"
             onClick={handleGptSearchClick}
           >
             {!showGptSearch ? (
@@ -128,3 +129,5 @@ const Header = () => {
 };
 
 export default Header;
+
+// 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

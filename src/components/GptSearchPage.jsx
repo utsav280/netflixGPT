@@ -6,8 +6,8 @@ import Header from "./Header";
 
 const GptSearchPage = () => {
   return (
-    <div className="absolute w-full h-screen">
-      <div className="relative top-0 left-0 w-full h-full z-0">
+    <div className=" w-full h-screen">
+      <div className="fixed top-0 left-0 w-full h-full z-0">
         <img
           className="w-full h-full object-cover"
           src={BACKGROUND}
