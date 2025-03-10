@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa"; // Import arrow icons
+import { FaCaretDown, FaCaretUp, FaHome, FaSearch } from "react-icons/fa";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate, useLocation } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, PROFILE } from "../utils/constants";
+import { toggleGptSearch } from "../utils/gptSlice";
+import { SUPPORTED_LANGUAGES } from "../utils/constants";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log(auth);
+  const showGptSearch = useSelector((store) => store.gpt.showGPTSearch);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleGptSearchClick = () => {
+    console.log("GPT Search button clicked");
+    dispatch(toggleGptSearch());
   };
 
   const handleSignOut = () => {
@@ -30,6 +38,9 @@ const Header = () => {
         // An error happened.
         navigate("/error");
       });
+  };
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
   };
 
   useEffect(() => {
@@ -53,6 +64,36 @@ const Header = () => {
       <img className="w-36" src={LOGO} alt="logo" />
       {location.pathname === "/browse" && (
         <div className="relative flex items-center space-x-4">
+          {showGptSearch && (
+            <select
+              className=" w-24 px-2 bg-white  rounded-md shadow-lg py-2 z-20 transition-all duration-300 ease-in-out"
+              name="language"
+              id="language"
+              onChange={handleLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((language) => (
+                <option
+                  className="right-0 mt-32 w-48 text-white bg-black bg-opacity-100 rounded-md shadow-lg py-2 z-20 transition-all duration-300 ease-in-out hover:underline "
+                  key={language.identifier}
+                  value={language.identifier}
+                >
+                  {language.name}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <button
+            className="flex items-center py-2 px-4 mx-4 my-2 bg-transparent text-white text-lg font-normal rounded-md hover:underline transition duration-300"
+            onClick={handleGptSearchClick}
+          >
+            {!showGptSearch ? (
+              <FaSearch className="mr-2" />
+            ) : (
+              <FaHome className="mr-2" />
+            )}{" "}
+            {showGptSearch ? "Home" : "GPT Search"}
+          </button>
           <div
             className="flex items-center cursor-pointer"
             onClick={toggleDropdown}
@@ -87,107 +128,3 @@ const Header = () => {
 };
 
 export default Header;
-// import React, { useState, useEffect } from "react";
-// import { FaCaretDown, FaCaretUp } from "react-icons/fa"; // Import arrow icons
-// import { signOut } from "firebase/auth";
-// import { auth } from "../utils/firebase";
-// import { useNavigate, useLocation } from "react-router-dom";
-// import { onAuthStateChanged } from "firebase/auth";
-// import { useDispatch } from "react-redux";
-// import { addUser, removeUser } from "../utils/userSlice";
-// import { LOGO, PROFILE } from "../utils/constants";
-
-// const Header = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const location = useLocation();
-
-//   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-//   const toggleDropdown = () => {
-//     setIsDropdownOpen((prev) => !prev);
-//   };
-
-//   const handleSignOut = () => {
-//     signOut(auth)
-//       .then(() => {
-//         // Sign-out successful, redirect to home page.
-//         navigate("/");
-//       })
-//       .catch((error) => {
-//         navigate("/error"); // Handle errors
-//       });
-//   };
-
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (user) => {
-//       if (user) {
-//         const { uid, email, displayName } = user;
-//         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-//         navigate("/browse");
-//       } else {
-//         dispatch(removeUser());
-//         navigate("/");
-//       }
-//     });
-//     return () => unsubscribe();
-//   }, [dispatch, navigate]);
-
-//   return (
-//     <div className="relative w-screen z-10 px-8 py-2 bg-gradient-to-b from-black to-transparent flex justify-between">
-//       <img className="w-36" src={LOGO} alt="logo" />
-//       {location.pathname === "/browse" && (
-//         <div
-//           className="relative flex items-center space-x-4 z-50"
-//           style={{
-//             position: "relative",
-//             zIndex: 10000,
-//           }}
-//         >
-//           <div
-//             className="flex items-center cursor-pointer relative"
-//             onClick={toggleDropdown}
-//           >
-//             <img
-//               className="w-10 h-10 rounded-full"
-//               src={PROFILE}
-//               alt="profilePic"
-//             />
-//             <div className="ml-2 text-white">
-//               {isDropdownOpen ? (
-//                 <FaCaretUp size={24} />
-//               ) : (
-//                 <FaCaretDown size={24} />
-//               )}
-//             </div>
-//           </div>
-
-//           {/* Dropdown Menu */}
-//           {isDropdownOpen && (
-//             <div
-//               className="absolute right-0 mt-2 w-48 bg-black bg-opacity-75 rounded-md shadow-lg py-2 z-50"
-//               style={{
-//                 top: "100%", // This ensures the dropdown appears below the profile picture
-//                 right: "0", // Aligns the dropdown to the right edge of the profile picture
-//                 pointerEvents: "auto", // Ensure the dropdown can be clicked
-//               }}
-//             >
-//               {/* Sign-Out Button */}
-//               <button
-//                 onClick={handleSignOut}
-//                 className="w-full text-left px-4 py-2 text-white hover:bg-gray-700 focus:outline-none"
-//                 style={{
-//                   zIndex: 10001, // Ensure the button is on top of the dropdown
-//                 }}
-//               >
-//                 Sign Out
-//               </button>
-//             </div>
-//           )}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Header;
