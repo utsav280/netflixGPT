@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { FaCaretDown, FaCaretUp, FaHome, FaSearch } from "react-icons/fa";
 import { signOut } from "firebase/auth";
@@ -40,6 +41,7 @@ const Header = () => {
         navigate("/error");
       });
   };
+
   const handleLanguageChange = (e) => {
     dispatch(changeLanguage(e.target.value));
   };
@@ -61,20 +63,20 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute w-screen z-20 px-8 py-2 bg-gradient-to-b from-black to-transparent  flex justify-between">
-      <img className="w-36" src={LOGO} alt="logo" />
+    <div className="absolute w-full z-20 px-4 py-2 bg-gradient-to-b from-black to-transparent flex justify-between items-center">
+      <img className="w-24 md:w-36" src={LOGO} alt="logo" />
       {location.pathname === "/browse" && (
-        <div className="relative flex items-center space-x-4">
+        <div className="relative flex items-center space-x-2 md:space-x-4">
           {showGptSearch && (
             <select
-              className=" w-24 px-2 bg-white  rounded-md shadow-lg py-2 z-20 transition-all duration-300 ease-in-out"
+              className="w-20 md:w-24 px-2 bg-white rounded-md shadow-lg py-2 z-20 transition-all duration-300 ease-in-out"
               name="language"
               id="language"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((language) => (
                 <option
-                  className="right-0 mt-32 w-48 text-white bg-black bg-opacity-100 rounded-md shadow-lg py-2 z-20 transition-all duration-300 ease-in-out hover:underline "
+                  className="right-0 mt-32 w-48 text-white bg-black bg-opacity-100 rounded-md shadow-lg py-2 z-20 transition-all duration-300 ease-in-out hover:underline"
                   key={language.identifier}
                   value={language.identifier}
                 >
@@ -85,7 +87,7 @@ const Header = () => {
           )}
 
           <button
-            className="flex items-center py-2 px-4 mx-4 my-2 bg-transparent border border-white text-white text-lg font-normal rounded-md hover:underline transition duration-300"
+            className="flex items-center py-2 px-2 md:px-4 mx-2 md:mx-4 my-2 bg-transparent border border-white text-white text-sm md:text-lg font-normal rounded-md hover:underline transition duration-300"
             onClick={handleGptSearchClick}
           >
             {!showGptSearch ? (
@@ -100,14 +102,14 @@ const Header = () => {
             onClick={toggleDropdown}
           >
             <img
-              className="w-10 h-10 z-20 rounded-md "
+              className="w-8 h-8 md:w-10 md:h-10 z-20 rounded-md"
               src={PROFILE}
               alt="profilePic"
             />
             {isDropdownOpen ? (
               <FaCaretUp className="text-white ml-2" />
             ) : (
-              <FaCaretDown className="text-white ml-2 " />
+              <FaCaretDown className="text-white ml-2" />
             )}
           </div>
           <div
@@ -129,5 +131,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// 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
