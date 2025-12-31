@@ -141,7 +141,7 @@ const Login = () => {
         </button>
 
         <p className="inline text-gray-500">
-          {isSignInForm ? "New to Netflix?" : "Already a member?"}
+          {isSignInForm ? "New to MovieGPT?" : "Already a member?"}
         </p>
         <p
           className="inline font-bold text-white cursor-pointer hover:underline"
