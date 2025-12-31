@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# 🎬 MovieGPT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MovieGPT is an AI-powered movie discovery web application built using React.js.  
+It uses **Google Gemini AI** to generate intelligent movie recommendations based on user input and **TMDB APIs** to fetch real-time movie details.
 
-## Available Scripts
+The project focuses on clean UI, smooth user experience, and modern frontend best practices.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 🤖 AI-powered movie recommendations using Google Gemini
+- 🎥 Real-time movie data powered by TMDB
+- 🔍 GPT-based movie search experience
+- 🔐 Firebase authentication (Sign In / Sign Out)
+- 🌍 Multi-language support
+- ⏳ Loading states & graceful error handling
+- 📱 Fully responsive UI
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠 Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend:** React.js, Redux Toolkit
+- **Styling:** Tailwind CSS
+- **Authentication:** Firebase Authentication
+- **AI Integration:** Google Gemini API
+- **Movies Data:** TMDB API
+- **State Management:** Redux Toolkit
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⚙️ Setup & Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   git clone https://github.com/your-username/moviegpt.git
 
-### `npm run eject`
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Install dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Create a .env file in the root directory and add the following environment variables:
 
-## Learn More
+REACT_APP_TMDB_KEY=your_tmdb_v4_bearer_token
+REACT_APP_GEMINI_KEY=your_google_gemini_api_key
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The .env file is intentionally excluded from version control for security reasons.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Start the development server
 
-### Code Splitting
+   npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+📌 Notes
 
-### Analyzing the Bundle Size
+This project is built for learning and portfolio purposes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+API responses are handled gracefully with proper loading and error states
 
-### Making a Progressive Web App
+Authentication state is managed using Firebase and Redux.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+⚠️ Disclaimer
 
-### Advanced Configuration
+This project is not affiliated with Netflix or any streaming platform.
+All data is sourced from publicly available APIs and used for educational purposes only.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+👨‍💻 Author
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Utsav Goyal
+Frontend Developer | React.js | JavaScript

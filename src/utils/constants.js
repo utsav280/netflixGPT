@@ -14,7 +14,14 @@ export const API_OPTIONS = {
     Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
   },
 };
-
+// export const API_OPTIONS = {
+//   method: "GET",
+//   headers: {
+//     accept: "application/json",
+//     Authorization:
+//       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTM4YmQyMDBiZDUwZjNhNGQxZDA5OGQ2ZGUxMzljZCIsIm5iZiI6MTc0MTIzODM0OC4yNDgsInN1YiI6IjY3YzkzMDRjNmZiNDAwMTM5MjBjY2VlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZmKMY8CStkqrC0qkYdDGXc0n0lYsl0YYmzmrHedyDUM",
+//   },
+// };
 export const URL = "https://api.themoviedb.org/3/movie/now_playing?page=1";
 
 export const URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?page=1";
@@ -34,3 +41,4 @@ export const SUPPORTED_LANGUAGES = [
 ];
 
 export const GEMINI_AI_KEY = process.env.REACT_APP_GEMINI_AI_KEY;
+// export const GEMINI_AI_KEY = "AIzaSyBkqf7FkP9Hm_vTaq98y_eFvIXKO8ONI8I";
