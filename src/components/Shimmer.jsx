@@ -2,47 +2,25 @@ import React from "react";
 
 const Shimmer = ({ title }) => {
   return (
-    <div className="px-8 py-4">
-      <h1 className="text-2xl font-bold text-white mb-4">{title}</h1>
-      <div className="flex space-x-4 overflow-x-scroll no-scrollbar">
-        {Array(5)
+    <div className="px-6 md:px-10 py-5">
+      {/* Title skeleton */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-1 h-6 rounded-full shimmer-bg" />
+        <div className="h-5 w-36 rounded-lg shimmer-bg" />
+      </div>
+
+      {/* Card skeletons */}
+      <div className="flex gap-3 overflow-x-hidden">
+        {Array(7)
           .fill(0)
-          .map((_, index) => (
+          .map((_, i) => (
             <div
-              key={index}
-              className="min-w-[200px] h-48 bg-gray-700 rounded-md shimmer"
-            ></div>
+              key={i}
+              className="min-w-[160px] md:min-w-[185px] h-60 md:h-72 rounded-lg shimmer-bg flex-shrink-0"
+              style={{ opacity: 1 - i * 0.1 }}
+            />
           ))}
       </div>
-      <style jsx="true">{`
-        .shimmer {
-          background: linear-gradient(
-            to right,
-            #2a2a2a 8%,
-            #3a3a3a 18%,
-            #2a2a2a 33%
-          );
-          background-size: 1000px 100%;
-          animation: shimmer 1.5s infinite linear;
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-          display: none; /* Chrome, Safari, and Opera */
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none; /* IE and Edge */
-          scrollbar-width: none; /* Firefox */
-        }
-
-        @keyframes shimmer {
-          0% {
-            background-position: -1000px 0;
-          }
-          100% {
-            background-position: 1000px 0;
-          }
-        }
-      `}</style>
     </div>
   );
 };

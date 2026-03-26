@@ -1,25 +1,19 @@
 import React from "react";
 import GptSearchBar from "./GptSearchBar";
-import GptMovieSuggestions from "./GptMovieSuggestions";
-import { BACKGROUND } from "../utils/constants";
-import Header from "./Header";
 
 const GptSearchPage = () => {
   return (
-    <div className=" w-full h-screen">
-      <div className="fixed top-0 left-0 w-full h-full z-0">
-        <img
-          className="w-full h-full object-cover"
-          src={BACKGROUND}
-          alt="background"
-        />
+    <div className="relative w-full min-h-screen overflow-y-auto bg-black">
+      {/* Subtle background gradient */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(229,9,20,0.07)_0%,_transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(80,0,120,0.04)_0%,_transparent_60%)]" />
       </div>
-      <div className="absolute top-0 left-0 w-full h-full z-10">
-        <Header /> {/* Include Header component */}
-        <div className="mt-4">
-          <GptSearchBar />
-          <GptMovieSuggestions />
-        </div>
+
+      {/* All content (chat + results) lives inside GptSearchBar */}
+      <div className="relative z-10 pb-16">
+        <GptSearchBar />
       </div>
     </div>
   );

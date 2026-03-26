@@ -32,12 +32,16 @@ export const URL_TOP_RATED =
 export const URL_UPCOMING =
   "https://api.themoviedb.org/3/movie/upcoming?page=1";
 
-//
-export const IMG_CDN = "https://image.tmdb.org/t/p/w500";
+// Discrete TMDB API Image Resizing Constants
+export const IMG_CDN_W185 = "https://image.tmdb.org/t/p/w185";
+export const IMG_CDN_W342 = "https://image.tmdb.org/t/p/w342";
+export const IMG_CDN_W500 = "https://image.tmdb.org/t/p/w500";
+export const IMG_CDN_ORIGINAL = "https://image.tmdb.org/t/p/original";
 
 export const SUPPORTED_LANGUAGES = [
   { identifier: "en", name: "English" },
   { identifier: "hindi", name: "Hindi" },
+  { identifier: "spanish", name: "Spanish" },
 ];
 
 export const GEMINI_AI_KEY = process.env.REACT_APP_GEMINI_AI_KEY;

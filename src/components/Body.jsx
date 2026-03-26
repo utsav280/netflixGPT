@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import Login from "./Login";
-import Browse from "./Browse";
-import { RouterProvider } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+const Browse = lazy(() => import("./Browse"));
+const ProfilePage = lazy(() => import("./ProfilePage"));
+const PersonPage = lazy(() => import("./PersonPage"));
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -14,11 +16,27 @@ const Body = () => {
       path: "/browse",
       element: <Browse />,
     },
+    {
+      path: "/profile",
+      element: <ProfilePage />,
+    },
+    {
+      path: "/person/:id",
+      element: <PersonPage />,
+    },
   ]);
 
   return (
     <div>
-      <RouterProvider router={appRouter} />
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-[#141414] flex items-center justify-center">
+            <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        }
+      >
+        <RouterProvider router={appRouter} />
+      </Suspense>
     </div>
   );
 };

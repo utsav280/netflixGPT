@@ -6,6 +6,9 @@ const gptSlice = createSlice({
     showGPTSearch: false,
     movieNames: null,
     movieResults: null,
+    // Chat history for conversational mode
+    chatHistory: [], // [{ role: "user"|"assistant", text: string, movies?: [] }]
+    isChatMode: false,
   },
   reducers: {
     toggleGptSearch: (state) => {
@@ -16,13 +19,31 @@ const gptSlice = createSlice({
       state.movieNames = movieNames;
       state.movieResults = movieResults;
     },
-    removeGptMovieResults: (state, action) => {
+    removeGptMovieResults: (state) => {
       state.movieNames = null;
       state.movieResults = null;
+    },
+    addChatMessage: (state, action) => {
+      state.chatHistory.push(action.payload);
+    },
+    clearChatHistory: (state) => {
+      state.chatHistory = [];
+      state.movieNames = null;
+      state.movieResults = null;
+    },
+    setChatMode: (state, action) => {
+      state.isChatMode = action.payload;
     },
   },
 });
 
-export const { toggleGptSearch, addGptMovieResults, removeGptMovieResults } =
-  gptSlice.actions;
+export const {
+  toggleGptSearch,
+  addGptMovieResults,
+  removeGptMovieResults,
+  addChatMessage,
+  clearChatHistory,
+  setChatMode,
+} = gptSlice.actions;
+
 export default gptSlice.reducer;
