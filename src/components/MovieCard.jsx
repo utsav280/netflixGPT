@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { IMG_CDN, IMG_CDN_W342 } from "../utils/constants";
+import { IMG_CDN_W342 } from "../utils/constants";
 import { setSelectedMovie } from "../utils/movieSlice";
-import { FaPlay, FaStar } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import useTrailerOnHover from "../hooks/useTrailerOnHover";
 
 const MovieCard = ({ posterPath, title, rating, movie }) => {

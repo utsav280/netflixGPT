@@ -61,7 +61,6 @@ const GptSearchBar = () => {
     }
   };
 
-  const handleKeyDown = (e) => { if (e.key === "Enter") handleSearch(); };
 
   const hasResults = movieNames && movieResults;
 
