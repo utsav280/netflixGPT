@@ -252,9 +252,9 @@ const MovieModal = () => {
                         }}
                         className="flex-shrink-0 w-16 text-center cursor-pointer group hover:scale-105 transition-transform"
                       >
-                        {member.profilePath ? (
+                        {member.profile_path ? (
                           <img
-                            src={member.profilePath}
+                            src={member.avatar}
                             alt={member.name}
                             className="w-14 h-14 rounded-full object-cover mx-auto border-2 border-transparent group-hover:border-red-500 transition-colors"
                           />
