@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { FaSearch, FaSpinner, FaMagic } from "react-icons/fa";
 import lang from "../utils/langConstants";
 import { useSelector, useDispatch } from "react-redux";
-import { genAI } from "../utils/geminiAi";
+import { fetchGemini } from "../utils/geminiAi";
 import { API_OPTIONS } from "../utils/constants";
 import { addGptMovieResults } from "../utils/gptSlice";
 import MovieList from "./MovieList";
@@ -43,9 +43,7 @@ const GptSearchBar = () => {
 
     try {
       const geminiQuery = `Act as a movie recommendation system. Suggest 5 movies for: "${query}". Return ONLY movie names, comma-separated.`;
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-      const result = await model.generateContent(geminiQuery);
-      const geminiResult = result?.response?.text();
+      const geminiResult = await fetchGemini(geminiQuery);
 
       if (!geminiResult) throw new Error("No recommendations found.");
 

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaRobot, FaTimes, FaSearch, FaSpinner, FaUser } from "react-icons/fa";
-import { genAI } from "../utils/geminiAi";
+import { fetchGemini } from "../utils/geminiAi";
 import { API_OPTIONS } from "../utils/constants";
 import { setSelectedMovie } from "../utils/movieSlice";
 import lang from "../utils/langConstants";
@@ -82,11 +82,10 @@ Respond in STRICT JSON format ONLY with this structure:
 Do not include any markdown formatting like \`\`\`json. Return ONLY the JSON object.
 `;
 
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-      const result = await model.generateContent(geminiQuery);
+      const rawResult = await fetchGemini(geminiQuery);
       
       // Clean up potential markdown formatting from Gemini
-      let rawText = result?.response?.text() || "{}";
+      let rawText = rawResult || "{}";
       rawText = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
       
       let parsedData = {};
